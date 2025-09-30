@@ -19,8 +19,9 @@
 
 @section('content')
 <div class="row">
-    <div class="col">
-        @foreach ($toppings as $topping)
+    @foreach ($toppings as $topping)
+    <div class="col-3">
+        
         <div class="card card-outline card-primary">
             <div class="card-header">
                 <h3 class="card-title">{{$topping->name}}</h3>
@@ -30,9 +31,9 @@
                 <br>
                 {{$topping->description}}
             </div>
-            </div>
-        @endforeach
+        </div>
     </div>
+    @endforeach
 
 </div>
 @endsection
