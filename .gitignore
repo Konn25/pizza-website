@@ -1,0 +1,68 @@
+# Log
+*.log
+npm-debug.log
+
+#Os specific
+.DS_Store
+Thumbs.db
+
+#Bash
+.env
+.env.*
+.env.backup
+.env.production
+.env.*.php
+.env.php
+auth.json
+
+#IDE/Editor
+.phpactor.json
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+#Test
+.phpunit.result.cache
+bootstrap/compiled.php
+
+#Dependency
+/node_modules
+/vendor
+
+#Public storage
+/public/build
+/public/hot
+/public/storage
+public/storage
+public/hot
+/storage/*.key
+/storage/pail
+storage/*.key
+
+#Homestead
+
+Homestead.yaml
+Homestead.json
+
+#Old structure
+app/storage/
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
