@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Teszt Server')
+@section('title', 'Test Server')
 
 @section('breadcrumb')
 <div class="row mb-2">
     <div class="col-sm-6">
-        <h1 class="m-0">Teszt  Server</h1>
+        <h1 class="m-0">Test  Server</h1>
     </div>
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
-                Servers
+                Test
             </li>
             <li class="breadcrumb-item active">#{{ 0 }}</li>
         </ol>
