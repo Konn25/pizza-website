@@ -34,8 +34,7 @@
                 
             </div>
             <div class="card-footer d-flex justify-content-center" style="gap: 10px;">
-                <a href="{{route('pizzas.edit',$pizza)}}"><button type="button" class="btn btn-outline-primary"><i class="fas fa-pen"></i></button></a>
-
+                <td><a href="{{route('pizzas.edit',$pizza)}}"><button type="button" class="btn btn-outline-primary"><i class="fas fa-pen"></i></button></a></td>
                 <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
             </div>
         </div>
