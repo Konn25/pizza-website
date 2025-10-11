@@ -42,4 +42,5 @@
     @endforeach
 
 </div>
+<br>
 @endsection

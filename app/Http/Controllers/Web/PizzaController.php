@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PizzaUpdateRequest;
 use App\Models\Pizza;
 use Illuminate\Http\Request;
 
@@ -51,9 +52,23 @@ class PizzaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PizzaUpdateRequest $request, Pizza $pizza)
     {
-        //
+        
+        $data = $request->validated();
+
+        if($request->hasFile('url')){
+            $file = $request->file('url');
+
+            $filename = time().'_'.$file->getClientOriginalName();
+            $file->move(public_path('images/pizzas'), $filename);
+
+            $data['url'] ='/images/pizzas/'.$filename;
+        }
+
+        $pizza->update($data);
+
+        return redirect()->route('pizzas.edit',$pizza)->with(['success' => 'Pizza updated']);
     }
 
     /**
