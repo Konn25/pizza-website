@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ToppingUpdateRequest;
 use App\Models\Topping;
 use Illuminate\Http\Request;
 
@@ -43,17 +44,30 @@ class ToppingsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Topping $topping)
     {
-        //
+        return view('pages.toppings.edit', ['topping' => $topping]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ToppingUpdateRequest $request, Topping $topping)
     {
-        //
+        $data = $request->validated();
+
+        if($request->hasFile('url')){
+            $file = $request->file('url');
+
+            $filename = time().'_'.$file->getClientOriginalName();
+            $file->move(public_path('images/toppings'), $filename);
+
+            $data['url'] ='/images/toppings/'.$filename;
+        }
+
+        $topping->update($data);
+
+        return redirect()->route('toppings.edit',$topping)->with(['success' => 'Topping updated']);
     }
 
     /**

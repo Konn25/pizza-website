@@ -31,6 +31,10 @@
                 <br>
                 {{$topping->description}}
             </div>
+            <div class="card-footer d-flex justify-content-center" style="gap: 10px;">
+                <td><a href="{{route('toppings.edit',$topping)}}"><button type="button" class="btn btn-outline-primary"><i class="fas fa-pen"></i></button></a></td>
+                <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+            </div>
         </div>
     </div>
     @endforeach
