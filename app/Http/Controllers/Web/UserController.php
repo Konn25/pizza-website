@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -53,9 +54,13 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
         //
+        $data = $request->validated();
+        $user->update($data);
+
+        return redirect()->route('users.edit',$user)->with(['success' => 'User updated']);
     }
 
     /**
