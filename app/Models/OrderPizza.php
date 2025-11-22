@@ -13,7 +13,9 @@ class OrderPizza extends Model
 
     protected $fillable = [
         'order_id', 
-        'pizza_id'
+        'pizza_id',
+        'size',
+        'status'
     ];
     
     public function order()
@@ -24,6 +26,10 @@ class OrderPizza extends Model
     public function pizza()
     {
         return $this->belongsTo(Pizza::class);
+    }
+
+    public function orderStatus(){
+        return $this->belongsTo(OrderStatus::class, 'status', 'id');
     }
 
     public function orderPizzaToppings()
