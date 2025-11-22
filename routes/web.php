@@ -15,6 +15,9 @@ Route::resource('users',UserController::class);
 Route::resource('orders',OrderController::class);
 Route::resource('pizzas',PizzaController::class);
 Route::resource('toppings',ToppingsController::class);
+Route::post('/order/{order}/nextStation', [OrderController::class, 'nextStation'])->name('orders.nextStation');
+Route::post('/order/{order}/decreaseStation', [OrderController::class, 'decreaseStation'])->name('orders.decreaseStation');
+
 
 
 

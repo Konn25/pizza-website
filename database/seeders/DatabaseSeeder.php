@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Order;
 use App\Models\OrderPizza;
 use App\Models\OrderPizzaTopping;
+use App\Models\OrderStatus;
 use App\Models\Pizza;
 use App\Models\User;
 use App\Models\Topping;
@@ -122,13 +123,48 @@ class DatabaseSeeder extends Seeder
 
         $orderPizza = OrderPizza::factory()->create([
             'order_id' => $order->id,
-            'pizza_id' => $pizza->id
+            'pizza_id' => $pizza->id,
+            'size' => fake()->randomElement(['S', 'M', 'L', 'XL', 'XXL']),
+            'status' => 1
+
+        ]);
+
+        $orderPizza = OrderPizza::factory()->create([
+            'order_id' => $order->id,
+            'pizza_id' => $pizza->id,
+            'size' => fake()->randomElement(['S', 'M', 'L', 'XL', 'XXL']),
+            'status' => 1
 
         ]);
 
         OrderPizzaTopping::factory()->create([
             'order_pizza_id' => $orderPizza->id,
             'topping_id' => $topping->id
+        ]);
+
+        OrderStatus::factory()->create([
+            'name' => 'Waiting for approval'
+
+        ]);
+
+        OrderStatus::factory()->create([
+            'name' => 'Approved, waiting for baking'
+        ]);
+
+        OrderStatus::factory()->create([
+            'name' => 'Baking'
+        ]);
+
+        OrderStatus::factory()->create([
+            'name' => 'Done, waiting for deliver'
+        ]);
+
+        OrderStatus::factory()->create([
+            'name' => 'Delivering'
+        ]);
+
+        OrderStatus::factory()->create([
+            'name' => 'Delivered'
         ]);
 
     }

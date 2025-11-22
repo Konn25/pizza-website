@@ -1,9 +1,9 @@
 <style>
     .waiting-status {
-        background: linear-gradient(135deg, #e47900, #ffb300);
+        background: linear-gradient(135deg, #67d47a, #67d47a);
         color: #212529;
         font-weight: 600;
-        border: 1px solid #e6a800;
+        border: 1px solid #be0404;
         box-shadow: 0 2px 6px rgba(255, 193, 7, 0.4);
     }
 
@@ -79,9 +79,39 @@
                 @else
                     - Missing pizza
                 @endif
-    
-                <span class="badge waiting-status text-dark px-3 py-2 fs-6 shadow-sm">
-                    🟡 Waiting for approval
+
+                @php
+                    
+                $statusClasses = [
+                    1 => 'bg-warning text-dark',  
+                    2 => 'waiting-status text-dark',   
+                    3 => 'bg-info text-white',      
+                    4 => 'bg-secondary text-white', 
+                    5 => 'bg-indigo text-white',    
+                    6 => 'bg-success text-white',   
+                ];
+            
+                $statusIcons = [
+                    1 => '🔴',
+                    2 => '🟡',
+                    3 => '🔵',
+                    4 => '🟠',
+                    5 => '🟣',
+                    6 => '🟢',
+                ];
+
+
+                @endphp
+
+                @foreach($order->orderPizzas as $orderPizza)
+                @php
+                    $orderStatusName = $orderPizza->orderStatus->name;
+                    $orderStatusId = $orderPizza->status;
+                @endphp
+                @endforeach
+
+            <span class="badge {{ $statusClasses[$orderStatusId] ?? 'bg-secondary' }} px-3 py-2 fs-6 shadow-sm">
+                    {{ $statusIcons[$orderStatusId] ?? '⚪' }} {{ $orderStatusName ?? 'Unknown' }}
                 </span>
             </div>
     
@@ -105,7 +135,7 @@
                             <li class="list-group-item bg-white rounded mb-2 shadow-sm border">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <strong>{{ $orderPizza->pizza->name }}</strong> <span class="text-muted">L size</span>
+                                        <strong>{{ $orderPizza->pizza->name }}</strong> <span class="text-muted">{{$orderPizza->size}}</span>
                                     </div>
                                     <span class="fw-bold text-success">{{ $orderPizza->pizza->price }} $</span>
                                 </div>
@@ -133,23 +163,37 @@
             </div>
     
             <div class="card-footer">
-                <div class="order-status badge bg-warning text-dark px-3 py-2 rounded-pill mb-3">Awaiting approval</div>
     
                 <div class="fw-bold">Total: {{ number_format($finalPrice, 2) }} $</div>
     
                 <div class="action-buttons d-flex justify-content-center" style="gap: 10px;">
-                    <button type="submit" class="btn btn-outline-success">
-                        <i class="fas fa-check"></i>
-                    </button>
-                    <button type="submit" class="btn btn-outline-danger">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                    
+                    <form action="{{ route('orders.decreaseStation', $order->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-warning">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                    </form>
+
+
+                    <form action="{{ route('orders.nextStation', $order->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-check"></i></button>
+                    </form>
+                
+                    <form method="POST" action="{{ route('orders.destroy', $order->id) }}" class="m-0 p-0">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-outline-danger">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
                 </div>
+                
             </div>
         </div>
     </div>
     @endforeach
     
-
 </div>
 @endsection
