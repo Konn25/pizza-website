@@ -100,6 +100,8 @@
                     6 => '🟢',
                 ];
 
+                $orderStatusName = null;
+                $orderStatusId = 'Unknown';
 
                 @endphp
 

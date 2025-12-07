@@ -55,48 +55,97 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview"
-                        role="menu" data-accordion="false">
-                        <li @class(['nav-item'])>
-                            <a href="{{route('users.index')}}" @class(['nav-link', 'active'=> Route::is('users.*')])>
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    Users
-                                    <span class="badge badge-danger right">{{ \App\Models\User::count() }}</span>
-                                </p>
+                    role="menu" data-accordion="false">
+
+                    @if(Auth::check())
+                        @if(Auth::user()->admin)
+                            <li class="nav-item">
+                                <a href="{{ route('users.index') }}" class="nav-link {{ Route::is('users.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Users</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('orders.index') }}" class="nav-link {{ Route::is('orders.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-clipboard-list"></i>
+                                    <p>Orders</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('pizzas.index') }}" class="nav-link {{ Route::is('pizzas.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-pizza-slice"></i>
+                                    <p>Pizzas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('toppings.index') }}" class="nav-link {{ Route::is('toppings.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-bacon"></i>
+                                    <p>Toppings</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit">Logout</button>
+                                </form>
+                            </li>
+                            
+                            @else                            
+                            @auth
+                                @if(Auth::user()->admin)
+                                    <li class="nav-item">
+                                        <a href="{{ route('pizzas.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-pizza-slice"></i>
+                                            <p>Pizzas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit">Logout</button>
+                                        </form>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a href="{{ route('guest.pizzas') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-pizza-slice"></i>
+                                            <p>Pizzas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit">Logout</button>
+                                        </form>
+                                    </li>
+                                @endif
+                            @endauth
+                        @endif    
+                    @else
+                        <li class="nav-item">
+                            <a href="{{ route('register') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p>Register</p>
                             </a>
                         </li>
-                        <li @class(['nav-item'])>
-                            <a href="{{route('orders.index')}}" @class(['nav-link', 'active'=> Route::is('orders.*')])>
-                                <i class="nav-icon fas fa-clipboard-list"></i>
-                                <p>
-                                    Orders
-                                    <span class="badge badge-danger right">{{ \App\Models\Order::count() }}</span>
-                                </p>
+                        <li class="nav-item">
+                            <a href="{{ route('login') }}" class="nav-link {{ Route::is('login') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-sign-in-alt"></i>
+                                <p>Login</p>
                             </a>
                         </li>
 
-                        <li @class(['nav-item'])>
-                            <a href="{{route('pizzas.index')}}" @class(['nav-link', 'active'=> Route::is('pizzas.*')])>
+                        <li class="nav-item">
+                            <a href="{{ route('guest.pizzas') }}" class="nav-link">
                                 <i class="nav-icon fas fa-pizza-slice"></i>
-                                <p>
-                                    Pizzas
-                                    <span class="badge badge-danger right">{{ \App\Models\Pizza::count() }}</span>
-                                </p>
+                                <p>Pizzas</p>
                             </a>
                         </li>
 
-                        <li @class(['nav-item'])>
-                            <a href="{{route('toppings.index')}}" @class(['nav-link', 'active'=> Route::is('toppings.*')])>
-                                <i class="nav-icon fas fa-bacon"></i>
-                                <p>
-                                    Toppings
-                                    <span class="badge badge-danger right">{{ \App\Models\Topping::count() }}</span>
-                                </p>
-                            </a>
-                        </li>
-
+                        @endif
                     </ul>
                 </nav>
+
             </div>
             <!-- /.sidebar -->
         </aside>
