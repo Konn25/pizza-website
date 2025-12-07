@@ -19,7 +19,8 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'orders' => $this->whenLoaded('orders'),
-            'orders_count' => $this->whenCounted('orders')
+            'orders_count' => $this->whenCounted('orders'),
+            'admin' => $this->admin
             
         ];
     }

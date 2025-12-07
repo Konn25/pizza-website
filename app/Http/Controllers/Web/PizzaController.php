@@ -78,4 +78,17 @@ class PizzaController extends Controller
     {
         //
     }
+
+    public function userIndex()
+    {
+        $pizzas = Pizza::all(); 
+        return view('pages.guest.pizza', compact('pizzas'));
+    }
+
+    public function publicIndex()
+    {
+        $pizzas = Pizza::all(); 
+        return view('pages.guest.pizza', compact('pizzas')); 
+    }
+
 }

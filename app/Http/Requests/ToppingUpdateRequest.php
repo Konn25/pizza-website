@@ -26,7 +26,6 @@ class ToppingUpdateRequest extends FormRequest
             "description" => "required|string",
             "price" => "required|numeric|min:0|max:120",
             "url" =>'nullable|image|max:20480'
-            // "url" => "string"
         ];
     }
 }
